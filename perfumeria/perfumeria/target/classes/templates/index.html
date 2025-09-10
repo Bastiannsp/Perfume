@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Perfumería</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
+<body>
+<h1>Catálogo</h1>
+<table border="1" cellpadding="6">
+  <thead>
+    <tr><th>ID</th><th>Nombre</th><th>Marca</th><th>Categoría</th><th>Precio</th><th>Stock</th></tr>
+  </thead>
+  <tbody>
+    <tr th:each="p : ${perfumes}">
+      <td th:text="${p.id}">1</td>
+      <td th:text="${p.nombre}">Nombre</td>
+      <td th:text="${p.marca.nombre}">Marca</td>
+      <td th:text="${p.categoria.nombre}">Categoría</td>
+      <td th:text="${#numbers.formatDecimal(p.precio, 0, 'COMMA', 0, 'POINT')}">0</td>
+      <td th:text="${p.stock}">0</td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>
