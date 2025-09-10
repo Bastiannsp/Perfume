@@ -4,23 +4,222 @@
   <meta charset="UTF-8"/>
   <title>Perfumería</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Iconos de Bootstrap para el carrito -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f8fafc 0%, #e9e4f0 100%);
+      font-family: 'Lato', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+    /* Menú superior */
+    nav {
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #3a2c5a;
+      letter-spacing: 2px;
+      text-decoration: none;
+    }
+    .menu-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .menu-links a {
+      color: #3a2c5a;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: color 0.2s;
+    }
+    .menu-links a:hover {
+      color: #8ec5fc;
+    }
+    .cart-icon {
+      font-size: 1.7rem;
+      color: #3a2c5a;
+      position: relative;
+      cursor: pointer;
+      margin-left: 1.5rem;
+      transition: color 0.2s;
+    }
+    .cart-icon:hover {
+      color: #8ec5fc;
+    }
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: #e0c3fc;
+      color: #3a2c5a;
+      border-radius: 50%;
+      font-size: 0.8rem;
+      padding: 2px 7px;
+      font-weight: bold;
+    }
+    header {
+      text-align: center;
+      margin: 2.5rem 0 1.5rem 0;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: #3a2c5a;
+      letter-spacing: 2px;
+      margin: 0;
+    }
+    /* Catálogo tipo tarjetas */
+    .catalogo-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      padding: 2rem 1rem 3rem 1rem;
+    }
+    .perfume-card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 6px 32px rgba(60,40,90,0.10);
+      padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.18s, box-shadow 0.18s;
+      position: relative;
+    }
+    .perfume-card:hover {
+      transform: translateY(-7px) scale(1.03);
+      box-shadow: 0 12px 36px rgba(60,40,90,0.16);
+    }
+    .perfume-img {
+      width: 110px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1.1rem;
+      box-shadow: 0 2px 12px rgba(60,40,90,0.10);
+      background: #f7f7fa;
+    }
+    .perfume-nombre {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: #3a2c5a;
+      margin-bottom: 0.3rem;
+      text-align: center;
+      font-weight: bold;
+    }
+    .perfume-marca {
+      color: #8b7bb7;
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+      text-align: center;
+    }
+    .perfume-categoria {
+      color: #b7a7d9;
+      font-size: 0.95rem;
+      margin-bottom: 0.7rem;
+      text-align: center;
+    }
+    .perfume-precio {
+      font-size: 1.15rem;
+      color: #3a2c5a;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .perfume-stock {
+      font-size: 0.98rem;
+      color: #6c6c6c;
+      margin-bottom: 1rem;
+    }
+    .btn-agregar {
+      background: linear-gradient(90deg, #e0c3fc 0%, #8ec5fc 100%);
+      color: #3a2c5a;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.3rem;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      box-shadow: 0 2px 8px rgba(60,40,90,0.06);
+    }
+    .btn-agregar:hover {
+      background: linear-gradient(90deg, #8ec5fc 0%, #e0c3fc 100%);
+      color: #fff;
+    }
+    @media (max-width: 700px) {
+      nav {
+        flex-direction: column;
+        gap: 0.7rem;
+        padding: 1rem 0.7rem;
+      }
+      .catalogo-container {
+        grid-template-columns: 1fr;
+        padding: 1rem 0.2rem 2rem 0.2rem;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
-<h1>Catálogo</h1>
-<table border="1" cellpadding="6">
-  <thead>
-    <tr><th>ID</th><th>Nombre</th><th>Marca</th><th>Categoría</th><th>Precio</th><th>Stock</th></tr>
-  </thead>
-  <tbody>
-    <tr th:each="p : ${perfumes}">
-      <td th:text="${p.id}">1</td>
-      <td th:text="${p.nombre}">Nombre</td>
-      <td th:text="${p.marca.nombre}">Marca</td>
-      <td th:text="${p.categoria.nombre}">Categoría</td>
-      <td th:text="${#numbers.formatDecimal(p.precio, 0, 'COMMA', 0, 'POINT')}">0</td>
-      <td th:text="${p.stock}">0</td>
-    </tr>
-  </tbody>
-</table>
+  <!-- Menú superior -->
+  <nav>
+    <a href="#" class="logo">Prestige Parfums</a>
+    <div class="menu-links">
+      <a href="#">Inicio</a>
+      <a href="#">Catálogo</a>
+      <a href="#">Ofertas</a>
+      <a href="#">Contacto</a>
+      <span class="cart-icon">
+        <i class="bi bi-bag"></i>
+        <span class="cart-badge" id="cart-count">0</span>
+      </span>
+    </div>
+  </nav>
+  <header>
+    <h1>Catálogo de Perfumes Exclusivos</h1>
+  </header>
+  <div class="catalogo-container">
+    <div class="perfume-card" th:each="p : ${perfumes}">
+      <img class="perfume-img" th:src="@{/img/61U1E3ajy0L._UF350,350_QL80_.jpg}" alt="Perfume" />
+      <div class="perfume-nombre" th:text="${p.nombre}">Nombre</div>
+      <div class="perfume-marca" th:text="${p.marca.nombre}">Marca</div>
+      <div class="perfume-categoria" th:text="${p.categoria.nombre}">Categoría</div>
+      <div class="perfume-precio" th:text="'$' + ${#numbers.formatDecimal(p.precio, 0, 'COMMA', 0, 'POINT')}">Precio</div>
+      <div class="perfume-stock" th:text="'Stock: ' + ${p.stock}">Stock</div>
+      <button class="btn-agregar" type="button">
+        <i class="bi bi-cart-plus"></i> Agregar al carrito
+      </button>
+    </div>
+  </div>
+  <!-- Script para simular el contador del carrito -->
+  <script>
+    // Simulación simple de agregar al carrito (solo frontend)
+    let count = 0;
+    document.querySelectorAll('.btn-agregar').forEach(btn => {
+      btn.addEventListener('click', () => {
+        count++;
+        document.getElementById('cart-count').textContent = count;
+      });
+    });
+  </script>
 </body>
 </html>
