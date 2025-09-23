@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <title>KPI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
+<body>
+<h1>KPI — Ventas por Marca</h1>
+
+<table border="1" cellpadding="6">
+  <thead>
+    <tr><th>Marca</th><th>Ventas</th></tr>
+  </thead>
+  <tbody>
+    <tr th:each="r : ${ventasPorMarca}">
+      <td th:text="${r.marca}">Marca</td>
+      <td th:text="${#numbers.formatDecimal(r.ventas,0,'COMMA',0,'POINT')}">0</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1>KPI — Ventas por Categoría</h1>
+<table border="1" cellpadding="6">
+  <thead>
+    <tr><th>Categoría</th><th>Ventas</th></tr>
+  </thead>
+  <tbody>
+    <tr th:each="r : ${ventasPorCategoria}">
+      <td th:text="${r.categoria}">Categoría</td>
+      <td th:text="${#numbers.formatDecimal(r.ventas,0,'COMMA',0,'POINT')}">0</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<p><a href="/">Catálogo</a> | <a href="/pedidos">Pedidos</a></p>
+</body>
+</html>
