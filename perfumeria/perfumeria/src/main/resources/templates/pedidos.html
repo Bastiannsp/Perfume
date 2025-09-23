@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Pedidos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
+<body>
+<h1>Pedidos</h1>
+
+<table border="1" cellpadding="6">
+  <thead>
+  <tr>
+    <th>ID</th><th>Cliente</th><th>Fecha</th><th>Total</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="p : ${pedidos}">
+    <td th:text="${p.id}">1</td>
+    <td th:text="${p.cliente.nombre}">Cliente</td>
+    <td th:text="${#temporals.format(p.fecha, 'yyyy-MM-dd HH:mm')}">2025-01-01</td>
+    <td th:text="${#numbers.formatDecimal(p.total,0,'COMMA',0,'POINT')}">0</td>
+  </tr>
+  </tbody>
+</table>
+
+<h2>Detalles</h2>
+<div th:each="p : ${pedidos}">
+  <h3 th:text="'Pedido #' + ${p.id}"></h3>
+  <table border="1" cellpadding="6">
+    <thead>
+    <tr><th>Perfume</th><th>Cant.</th><th>P.Unit</th><th>Subtotal</th></tr>
+    </thead>
+    <tbody>
+    <tr th:each="d : ${p.detalles}">
+      <td th:text="${d.perfume.nombre}">Perfume</td>
+      <td th:text="${d.cantidad}">1</td>
+      <td th:text="${#numbers.formatDecimal(d.precioUnit,0,'COMMA',0,'POINT')}">0</td>
+      <td th:text="${#numbers.formatDecimal(d.precioUnit * d.cantidad,0,'COMMA',0,'POINT')}">0</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<p><a href="/" >Volver al catálogo</a></p>
+</body>
+</html>
