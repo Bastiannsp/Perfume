@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <title>KPI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
+<body>
+<h1>KPI</h1>
+
+<form method="get" action="/kpi" style="margin-bottom: 1rem;">
+  <label>Desde:
+    <input type="date" name="desde" th:value="${desde}" />
+  </label>
+  <label>Hasta:
+    <input type="date" name="hasta" th:value="${hasta}" />
+  </label>
+  <button type="submit">Filtrar</button>
+  <a href="/kpi">Limpiar</a>
+</form>
+
+<h2>Ventas por perfume (más vendido)</h2>
+<table border="1" cellpadding="6">
+  <thead>
+  <tr><th>Perfume</th><th>Unidades</th><th>Ventas</th></tr>
+  </thead>
+  <tbody>
+  <tr th:each="r : ${topPerfumes}">
+    <td th:text="${r.perfume}">Perfume</td>
+    <td th:text="${r.unidades}">0</td>
+    <td th:text="${#numbers.formatDecimal(r.ventas,0,'COMMA',0,'POINT')}">0</td>
+  </tr>
+  </tbody>
+</table>
+
+<h2>Clientes con mayor frecuencia de compra</h2>
+<table border="1" cellpadding="6">
+  <thead>
+  <tr><th>Cliente</th><th>Pedidos</th></tr>
+  </thead>
+  <tbody>
+  <tr th:each="r : ${clientesFrecuentes}">
+    <td th:text="${r.cliente}">Cliente</td>
+    <td th:text="${r.pedidos}">0</td>
+  </tr>
+  </tbody>
+</table>
+
+<h2>Ventas por período (diario)</h2>
+<table border="1" cellpadding="6">
+  <thead>
+  <tr><th>Fecha</th><th>Ventas</th></tr>
+  </thead>
+  <tbody>
+  <tr th:each="r : ${ventasPorFecha}">
+    <td th:text="${#temporals.format(r.fecha.toLocalDate(), 'yyyy-MM-dd')}">2025-01-01</td>
+    <td th:text="${#numbers.formatDecimal(r.ventas,0,'COMMA',0,'POINT')}">0</td>
+  </tr>
+  </tbody>
+</table>
+
+<p><a href="/">Catálogo</a> | <a href="/pedidos">Pedidos</a></p>
+</body>
+</html>
+
